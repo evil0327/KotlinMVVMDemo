@@ -2,6 +2,7 @@ package softocean.app.kotlinmvvm.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment;
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -61,10 +63,14 @@ class MainFragment :Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             })
+        viewModel?.getToastMsgLiveData()?.observe(this, Observer { msg ->
+            Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+        })
 
+        viewModel?.getLoadingShowLiveData()?.observe(this, Observer { isShow ->
+            loading.visibility = if(isShow) VISIBLE else GONE
+        })
 
-        loading.visibility = VISIBLE
-        viewModel?.getCityList()
     }
 
     inner class MyAdapter : RecyclerView.Adapter<ViewHolder>() {

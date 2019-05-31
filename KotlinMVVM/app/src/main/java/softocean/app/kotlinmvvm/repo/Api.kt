@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import softocean.app.kotlinmvvm.vo.City
 
 interface Api {
-    @GET("111svk")
+    @GET("rxvqb")
     fun getCityList(): Deferred<Response<List<City>>>
 }
